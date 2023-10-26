@@ -1,5 +1,5 @@
 # CQArcheo
-A Python package for calculating and plotting Kendall CQA results (Kendall 1974).
+A simple Python package for calculating and plotting Kendall CQA results (Kendall 1974).
 
 ## Installation
 At the current stage of development, you need to clone the repository and install the package locally.
@@ -15,6 +15,7 @@ Now you can import the package in your Python scripts.
 
 ### TO DO
 - Write full docs and examples.
+    - Write the docs and the constraints for the input data.
 - Plotting options (also interactive graph?).
 - Add the repository to PyPl.
 
