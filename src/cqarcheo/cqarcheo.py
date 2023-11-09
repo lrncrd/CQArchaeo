@@ -8,6 +8,16 @@ import os
 from tqdm import tqdm
 
 
+
+import pandas as pd
+from matplotlib import pyplot as plt
+import numpy as np
+import math
+import seaborn as sns
+import os
+from tqdm import tqdm
+
+
 class CQAnalysis:
     def __init__(self, data, min_data_sample = 7, max_data_sample = 200, min_quantum = 4, max_quantum = 24, step = 0.02, Montecarlo_sim = True, mc_parameter = 0.15, mc_iterations = 100):
         
@@ -71,7 +81,7 @@ class CQAnalysis:
 
         phi_q_max_value = phi_q_df['Phi_q_values'].max()
         quantum_max = phi_q_df.loc[phi_q_df['Phi_q_values'].idxmax(), 'Quanta']
-        print(f"Highest 'Phi_q_values': {phi_q_max_value:.2f}, corrisponding to quantum: {quantum_max:.2f}")
+        print(f"Highest 'φ(q)': {phi_q_max_value:.2f}, corrisponding to quantum: {quantum_max:.2f}")
 
 
         self.phi_q_df = phi_q_df
@@ -147,7 +157,7 @@ class CQAnalysis:
             self.alpha_5 = []
             self.Montecarlo_phi_q = []
         
-    def plot_quantogram(self, figsize=(10, 6), title = "Quantogram", plot_best_quantum = True, save=False, dpi=300):
+    def plot_quantogram(self, figsize=(10, 6), title = "Quantogram", plot_best_quantum = True, save=False, legend_outside = True, x_step = 1, dpi=300):
         fig, ax = plt.subplots(figsize=figsize)
 
         sns.lineplot(data=self.phi_q_df, x=self.phi_q_df['Quanta'], y=self.phi_q_df['Phi_q_values'], color='black', label='Quantogram', ax=ax, linewidth=2)
@@ -160,17 +170,30 @@ class CQAnalysis:
         if plot_best_quantum == True:
             ax.axvline(x=quantum_max, color='grey', linestyle='--', label='Best quantum', linewidth=1)
 
+        ### zero line
+        ax.axhline(y=0, color='black', linestyle='-', linewidth=0.5)
+
         ax.set_xlim(self.quanta_arr[0], self.quanta_arr[-1])
         ax.tick_params(axis='y', labelsize=8)
         ax.tick_params(axis='x', labelsize=8)
 
-        plt.xticks(np.linspace(self.quanta_arr[0], self.quanta_arr[-1], 5))
+
+        xticks = np.arange(self.quanta_arr[0], self.quanta_arr[-1], x_step)
+        plt.xticks(xticks)
+
+                
         plt.legend()
         plt.grid(axis='y', linewidth=0.5)
 
-        plt.xlabel('Quanta')
-        plt.ylabel('Phi_q_values')
+        plt.xlabel('Quanta', fontsize=12)
+        plt.ylabel('$\phi$(q)', fontsize=12)
         plt.title(title)
+
+        plt.text(0.12, -0.02, f"Quantum: {self.quantum_max:.2f}, $\phi$(q) value: {self.phi_q_max_value:.2f}", transform=plt.gcf().transFigure, fontsize=8, ha='left')
+
+
+        if legend_outside == True:
+            plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
 
         if save == True:
             plt.savefig('Quantogram.png', dpi=dpi, bbox_inches='tight')
@@ -178,4 +201,68 @@ class CQAnalysis:
         plt.show()
 
     def __repr__(self):
-        return f"Quantum: {self.quantum_max:.3f}, Phi_q_values: {self.phi_q_max_value:.3f}"
+        return f"Quantum: {self.quantum_max:.3f}, φ(q) value: {self.phi_q_max_value:.3f}"
+
+
+def compare_quantograms(quantogram_list, figsize=(10, 6), color_list=None, label_list=None, plot_montecarlo_bound=True, alpha_list = None,
+                        legend_outside=True, x_step = 1, save= True, dpi = 300):
+    
+    fig, ax = plt.subplots(figsize=figsize)
+
+    if color_list is None:
+        color_palette = sns.color_palette("Set1", len(quantogram_list))
+    else:
+        color_palette = color_list
+
+    for i, quantogram in enumerate(quantogram_list):
+        
+        line_color = color_palette[i]
+
+        sns.lineplot(data=quantogram.phi_q_df, x='Quanta', y='Phi_q_values', ax=ax, linewidth=2, 
+                     color=line_color, 
+                     label=f'Quantogram {i}' if label_list is None else label_list[i],
+                     alpha = 1 if alpha_list is None else alpha_list[i])
+    
+        #plt.fill_between(quantogram.phi_q_df["Quanta"], quantogram.phi_q_df["Phi_q_values"])
+        
+        if plot_montecarlo_bound is True:
+        
+            ax.axhline(y=quantogram.alpha_1, color=line_color, linestyle=':', label='alpha_1', linewidth=1)
+            ax.axhline(y=quantogram.alpha_5, color=line_color, linestyle='--', label='alpha_5', linewidth=1)
+
+
+        elif isinstance(plot_montecarlo_bound, list):
+            if plot_montecarlo_bound[i] == True:
+                ax.axhline(y=quantogram.alpha_1, color=line_color, linestyle=':', label='alpha_1', linewidth=1)
+                ax.axhline(y=quantogram.alpha_5, color=line_color, linestyle='--', label='alpha_5', linewidth=1)
+
+
+
+    ax.set_xlim(quantogram_list[0].quanta_arr[0], quantogram_list[0].quanta_arr[-1])
+    ax.tick_params(axis='y', labelsize=8)
+    ax.tick_params(axis='x', labelsize=8)
+
+
+    xticks = np.arange(quantogram_list[0].quanta_arr[0], quantogram_list[0].quanta_arr[-1], x_step)
+    plt.xticks(xticks)
+
+
+    plt.legend()
+    plt.grid(axis='y', linewidth=0.5)
+
+    plt.xlabel('Quanta', fontsize=12)
+    plt.ylabel('$\phi$(q)', fontsize=12)
+    plt.title("Quantograms")
+    
+    if legend_outside == True:
+            plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
+
+    ### zero line
+    ax.axhline(y=0, color='black', linestyle='-', linewidth=0.5)
+    
+    if save == True:
+            plt.savefig('Quantogram_compare.png', dpi=dpi, bbox_inches='tight')
+    
+    
+    plt.show()
+
