@@ -1,7 +1,6 @@
-![](imgs/logo.jpg){fig-align="center" width="400"}
-
-
-
+<div style="text-align: center;">
+  <img src="imgs/logo.jpg" alt="logo" width=500/>
+</div>
 
 # CQArcheo
 A simple Python package for calculating and plotting Kendall CQA results (Kendall 1974).
