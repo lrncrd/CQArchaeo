@@ -165,3 +165,6 @@ data/
 # xlsx files
 
 *.xlsx
+
+#ai
+*.ai

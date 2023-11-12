@@ -1,3 +1,8 @@
+![](imgs/logo.jpg){fig-align="center" width="400"}
+
+
+
+
 # CQArcheo
 A simple Python package for calculating and plotting Kendall CQA results (Kendall 1974).
 
