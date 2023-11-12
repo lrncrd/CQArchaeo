@@ -10,10 +10,54 @@ pip install -e .
 ```
 Now you can import the package in your Python scripts.
 
+## Usage
+
+Perform a CQA analysis on a given dataset:
+
+```python
+### Import the package
+from cqarcheo import CQAnalysis
+
+### Perform the analysis
+cqa = CQAnalysis(r'data.xlsx', min_value = 5, max_value = 200, min_quantum = 5, 
+        max_quantum = 24, step = 0.02, Montecarlo_sim = True, 
+        mc_parameter = 0.15, mc_iterations = 100)
+
+### View the quantogram
+cqa.plot_quantogram(figsize=(10, 6), plot_best_quantum=True,    
+        dpi=300, plot_alpha_5=True)
+```
+You get the following quantogram:
+
+![](imgs/Quantogram.png)
+
+You can also compare multiple quantograms using the `compare_quantograms` function:
+
+```python
+### Import the package
+from cqarcheo import CQAnalysis, compare_quantograms
+
+### Perform the analysis
+cqa1 = CQAnalysis(r'data1.xlsx', min_value = 5, max_value = 200, min_quantum = 5, 
+        max_quantum = 24, step = 0.02, Montecarlo_sim = True, 
+        mc_parameter = 0.15, mc_iterations = 100)
+cqa2 = CQAnalysis(r'data2.xlsx', min_value = 5, max_value = 200, min_quantum = 5, 
+        max_quantum = 24, step = 0.02, Montecarlo_sim = True, 
+        mc_parameter = 0.15, mc_iterations = 100)
+
+### Compare the quantograms
+compare_quantograms(quantogram_list = [cqa1, cqa_2], figsize=(10, 6), 
+                    color_list=["black", "green"], alpha_list=[0.2, 1],
+                    label_list=None, plot_montecarlo_bound=[True, True])
+```
+
+You get the following plot:
+
+![](imgs/Quantogram_compare.png)
 
 
 
-### TO DO
+# TO DO
 - Write full docs and examples.
     - Write the docs and the constraints for the input data.
 - Plotting options (also interactive graph?).
