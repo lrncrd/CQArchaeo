@@ -1,7 +1,7 @@
 import setuptools
 
 setuptools.setup(
-    name='cqarcheo',
+    name='cqarchaeo',
     version='0.0.1',
     author='Lorenzo Cardarelli',
     author_email='lorenzocardarelli2@gmail.com',

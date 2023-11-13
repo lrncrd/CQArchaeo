@@ -73,6 +73,9 @@ class CQAnalysis:
         if len(data.columns) > 1:
             raise Exception("The file to be imported must have only one column.")
         
+        if mc_iterations < 100:
+            raise Exception("The number of Montecarlo iterations must be at least 100.")
+        
 
         cqa_params = [min_value, max_value, min_quantum, max_quantum]
         for param in cqa_params:
@@ -213,7 +216,6 @@ class CQAnalysis:
                 title of the figure (default: "Quantogram").
             plot_best_quantum (bool)
                 if True, the best quantum is plotted (default: True).
-
             legend_outside (bool)
                 if True, the legend is placed outside the figure (default: True).
             plot_alpha_1 (bool)
@@ -300,8 +302,8 @@ class CQAnalysis:
 
 
 def compare_quantograms(quantogram_list, figsize=(10, 6), color_list=None, label_list=None, 
-                        plot_montecarlo_bound=True, alpha_list = None, fill_between = True,
-                        legend_outside=True, x_step = 1, save= True, dpi = 300):
+                        plot_montecarlo_bound=True, alpha_list = None, plot_alpha_1 = True, plot_alpha_5 = True,
+                        fill_between = True, legend_outside=True, x_step = 1, save= True, dpi = 300):
     """
     Comprare multiple quantograms using matplotlib.
 
@@ -319,6 +321,10 @@ def compare_quantograms(quantogram_list, figsize=(10, 6), color_list=None, label
             if True, the Montecarlo bounds are plotted (default: True). If a list (including bool values) is passed, the bounds are plotted only for the quantograms in the list.
         alpha_list (list)
             list of alpha values (float) for the quantograms. If None, default values will be used (default: None).
+        plot_alpha_1 (bool)
+            if True, the alpha_1 value is plotted (default: True).
+        plot_alpha_5 (bool)
+            if True, the alpha_5 value is plotted (default: True).
         fill_between (bool)
             if True, the area between the quantogram and the x-axis is filled (default: True).
         legend_outside (bool)
@@ -374,15 +380,18 @@ def compare_quantograms(quantogram_list, figsize=(10, 6), color_list=None, label
 
        
         if plot_montecarlo_bound is True:
-        
-            ax.axhline(y=quantogram.alpha_1, color=line_color, linestyle=':', label='alpha_1', linewidth=1)
-            ax.axhline(y=quantogram.alpha_5, color=line_color, linestyle='--', label='alpha_5', linewidth=1)
+            if plot_alpha_1:
+                ax.axhline(y=quantogram.alpha_1, color=line_color, linestyle=':', label='alpha_1', linewidth=1)
+            if plot_alpha_5:
+                ax.axhline(y=quantogram.alpha_5, color=line_color, linestyle='--', label='alpha_5', linewidth=1)
 
 
         elif isinstance(plot_montecarlo_bound, list):
             if plot_montecarlo_bound[i] == True:
-                ax.axhline(y=quantogram.alpha_1, color=line_color, linestyle=':', label='alpha_1', linewidth=1)
-                ax.axhline(y=quantogram.alpha_5, color=line_color, linestyle='--', label='alpha_5', linewidth=1)
+                if plot_alpha_1: 
+                    ax.axhline(y=quantogram.alpha_1, color=line_color, linestyle=':', label='alpha_1', linewidth=1)
+                if plot_alpha_5:    
+                    ax.axhline(y=quantogram.alpha_5, color=line_color, linestyle='--', label='alpha_5', linewidth=1)
 
 
 
