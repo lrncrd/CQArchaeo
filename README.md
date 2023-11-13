@@ -1,5 +1,5 @@
 <div style="text-align: center;">
-  <img src="imgs/logo.jpg" alt="logo" width=500/>
+  <img src="imgs/logo.jpg" alt="logo" width=1000/>
 </div>
 
 # CQArcheo
