@@ -91,7 +91,7 @@ cqa2 = CQAnalysis(r'data2.xlsx', min_value = 5, max_value = 200, min_quantum = 5
         mc_parameter = 0.15, mc_iterations = 100)
 
 ### Compare the quantograms
-compare_quantograms(quantogram_list = [cqa1, cqa_2], figsize=(10, 6), 
+compare_quantograms(quantogram_list = [cqa1, cqa2], figsize=(10, 6), 
                     color_list=["black", "green"], alpha_list=[0.2, 1],
                     label_list=None, plot_montecarlo_bound=[True, True])
 ```
