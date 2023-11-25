@@ -59,11 +59,6 @@ You get the following plot:
 
 
 
-# TO DO
-- Write full docs and examples.
-    - Write the docs and the constraints for the input data.
-- Plotting options (also interactive graph?).
-- Add the repository to PyPl.
 
 ### References
 Kendall, D.G., 1974. Hunting quanta. Phil. Trans. R. Soc. Lond. A 276, 231–266. https://doi.org/10.1098/rsta.1974.0020

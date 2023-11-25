@@ -11,7 +11,3 @@ authors = [
 description = "A simple package to analyze archaeological data using Quantogram analysis"
 readme = "README.md"
 requires-python = ">=3.9"
-
-[project.urls]
-"Homepage" = "to add"
-"Bug Tracker" = "to add"
