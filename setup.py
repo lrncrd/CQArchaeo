@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='cqarchaeo',
-    version='0.0.1',
+    version='0.0.2',
     author='Lorenzo Cardarelli',
     author_email='lorenzocardarelli2@gmail.com',
     scripts=[],
