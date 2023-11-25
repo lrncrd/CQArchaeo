@@ -33,9 +33,9 @@ class CQAnalysis:
             Montecarlo_sim (bool) 
                 if True, a Montecarlo simulation is performed (default: True).
             mc_parameter (float) 
-                parameter for the Montecarlo simulation (default: 0.15).
+                The percentage by which you want to randomize the initial sample data for Monte Carlo simulation. Each element of the initial sample will take a value within a probability range determined by `mc_parameter`.(default: 0.15).
             mc_iterations (int)
-                number of iterations for the Montecarlo simulation (default: 100).
+                number of iterations for the Montecarlo simulation. Must be a minimum of 100 (default: 100).
 
         Returns
         -------
