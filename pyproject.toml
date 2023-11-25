@@ -3,8 +3,8 @@ requires = ['setuptools>=42']
 build-backend = 'setuptools.build_meta'
 
 [project]
-name = "cqarcheo"
-version = "0.0.2"
+name = "cqarchaeo"
+version = "0.0.5"
 authors = [
   { name="Lorenzo Cardarelli", email="lorenzocardarelli2@gmail.com" },
 ]
