@@ -6,11 +6,9 @@
 A simple Python package for calculating and plotting Kendall CQA results (Kendall 1974).
 
 ## Installation
-At the current stage of development, you need to clone the repository and install the package locally.
-Go to the download folder and run:
 
 ```bash
-pip install -e .
+pip install cqarchaeo
 ```
 Now you can import the package in your Python scripts.
 
@@ -20,7 +18,7 @@ Perform a CQA analysis on a given dataset:
 
 ```python
 ### Import the package
-from cqarcheo import CQAnalysis
+from cqarchaeo import CQAnalysis
 
 ### Perform the analysis
 cqa = CQAnalysis(r'data.xlsx', min_value = 5, max_value = 200, min_quantum = 5, 
@@ -39,7 +37,7 @@ You can also compare multiple quantograms using the `compare_quantograms` functi
 
 ```python
 ### Import the package
-from cqarcheo import CQAnalysis, compare_quantograms
+from cqarchaeo import CQAnalysis, compare_quantograms
 
 ### Perform the analysis
 cqa1 = CQAnalysis(r'data1.xlsx', min_value = 5, max_value = 200, min_quantum = 5, 
