@@ -74,6 +74,12 @@ You get the following quantogram:
 
 ![](imgs/Quantogram.png)
 
+if you want to save the table with the results of the analysis, you can use the `save_quanta` method:
+
+```python
+cqa.save_quanta(extension = 'xlsx')
+```
+
 You can also compare multiple quantograms using the `compare_quantograms` function:
 
 ```python
@@ -97,6 +103,8 @@ compare_quantograms(quantogram_list = [cqa1, cqa_2], figsize=(10, 6),
 You get the following plot:
 
 ![](imgs/Quantogram_compare.png)
+
+
 
 ## API references
 
@@ -186,6 +194,33 @@ Example
                                 plot_alpha_1 = True, plot_alpha_5 = True,
                                 x_step = 1, dpi=300)
 ``` 
+<br>
+
+### **CQAnalysis.save_quanta**
+
+       Save the quantogram data to a file (class method).
+
+Parameters
+
+                extension (str)
+                    extension ('xlsx' or 'csv') of the file to be saved (default: 'xlsx').
+
+Returns
+    
+                None
+
+Example
+
+```python
+>>> from cqarcheo import CQAnalysis
+>>> cqa = CQAnalysis(data = 'data.csv', min_value = 5, max_value = 200,
+                            min_quantum = 5, max_quantum = 24, step = 0.02,
+                            Montecarlo_sim = True, mc_parameter = 0.15, mc_iterations = 100)
+        
+>>> cqa.save_quanta(extension = 'xlsx')
+``` 
+
+
 <br>
 
 ### **compare_quantograms**

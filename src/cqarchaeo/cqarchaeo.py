@@ -297,8 +297,34 @@ class CQAnalysis:
 
         plt.show()
 
+    def save_quanta(self, extension = 'xlsx',):
+        """
+        Save the quantogram data to a file.
+
+        Parameters
+        ----------
+            extension (str)
+                extension ('xlsx' or 'csv') of the file to be saved (default: 'xlsx').
+        
+        Examples
+        --------
+        >>> from cqarcheo import CQAnalysis
+        >>> cqa = CQAnalysis(data = 'data.csv', min_value = 5, max_value = 200,
+                            min_quantum = 5, max_quantum = 24, step = 0.02,
+                            Montecarlo_sim = True, mc_parameter = 0.15, mc_iterations = 100)
+        >>> cqa.save_quanta(extension = 'xlsx')
+        """
+        if extension == 'xlsx':
+            self.phi_q_df.to_excel('Quanta_table.xlsx', index=False)
+        elif extension == 'csv':
+            self.phi_q_df.to_csv('Quanta_table.csv', index=False)
+        else:
+            raise Exception("Format not supported, please use csv (.csv) or excel (.xlsx) file.")
+
+
     def __repr__(self):
         return f"Quantum: {self.quantum_max:.3f}, φ(q) value: {self.phi_q_max_value:.3f}"
+    
 
 
 def compare_quantograms(quantogram_list, figsize=(10, 6), color_list=None, label_list=None, 

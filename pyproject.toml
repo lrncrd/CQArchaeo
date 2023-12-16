@@ -4,10 +4,18 @@ build-backend = 'setuptools.build_meta'
 
 [project]
 name = "cqarchaeo"
-version = "0.0.5"
+version = "0.0.6"
 authors = [
-  { name="Lorenzo Cardarelli", email="lorenzocardarelli2@gmail.com" },
+  {name="Lorenzo Cardarelli", email="lorenzocardarelli2@gmail.com"},
 ]
 description = "A simple package to analyze archaeological data using Quantogram analysis"
 readme = "README.md"
 requires-python = ">=3.9"
+dependencies = [
+    "pandas", 
+    "matplotlib", 
+    "numpy", 
+    "seaborn", 
+    "tqdm", 
+    "openpyxl"
+    ]
