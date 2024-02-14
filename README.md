@@ -2,9 +2,13 @@
   <img src="imgs/logo.jpg" alt="logo" width=500/>
 </div>
 
+
+
+
 # CQArchaeo
 `CQArchaeo` is a simple package that allows testing a numerical dataset with the formula established by Kendall (1974). 
 
+[![DOI](https://zenodo.org/badge/707589566.svg)](https://zenodo.org/doi/10.5281/zenodo.10658913)
 <hr>
 
 ### To run CQArchaeo in Google Colab, [click here](https://githubtocolab.com/lrncrd/CQArchaeo/blob/main/CQArchaeo_example_colab.ipynb)! 
